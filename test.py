@@ -1,7 +1,7 @@
 from collections import deque
 
-picks = [1, 3, 2]
-picks = ['diamond']*picks[0] + ['iron']*picks[1] + ['stone']*picks[2]
-picks = deque(picks)
+a = set()
+a.add(1)
 
-print(picks)
+print(deque(a))
+print('%'.isupper())
