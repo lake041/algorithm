@@ -1,7 +1,4 @@
-from collections import deque
+from collections import deque, defaultdict
+from itertools import combinations, permutations, product
 
-a = set()
-a.add(1)
-
-print(deque(a))
-print('%'.isupper())
+print(len(list(combinations(range(13), 2))))
