@@ -1,6 +1,9 @@
 from sys import stdin
 input = stdin.readline
 
+# MST
+# Union-Find
+
 N, M, K = map(int, input().split())
 stones = list(map(int, input().split()))
 NO = set(tuple(map(lambda x: int(x)-1, input().split())) for _ in range(M))
