@@ -54,9 +54,6 @@ while True:
     if done:
         break
     day += 1
-    print(group_members)
-    for row in bod:
-        print(row)
 
 print(day)
 
