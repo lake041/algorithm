@@ -1,3 +1,1 @@
-groups = {}
-for value in groups.values():
-    print(value)
+print(0.1 + 0.2 == 0.3)
