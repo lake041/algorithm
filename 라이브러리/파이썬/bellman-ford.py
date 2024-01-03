@@ -12,4 +12,5 @@ def bellman_ford(start, edges, N):
             dist[next_node] = new_dist
             if round == N-1:
                 return dist, True
+
     return dist, False
