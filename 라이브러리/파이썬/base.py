@@ -1,28 +1,17 @@
 value = 60
 
-b = format(value, '#b')
-o = format(value, '#o')
-h = format(value, '#x')
+b = format(value, '#b') # 0b111100
+o = format(value, '#o') # 0o74
+h = format(value, '#x') # 0x3c
 
 print(b)
 print(o)
 print(h)
 
-# 0b111100
-# 0o74
-# 0x3c
-
-
-value = 60
-
-b = format(value, 'b')
-o = format(value, 'o')
-h = format(value, 'x')
+b = format(value, 'b') # 111100
+o = format(value, 'o') # 74
+h = format(value, 'x') # 3c
 
 print(b)
 print(o)
 print(h)
-
-# 111100
-# 74
-# 3c
