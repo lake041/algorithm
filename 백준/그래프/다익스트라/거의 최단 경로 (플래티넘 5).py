@@ -1,30 +1,41 @@
 from sys import maxsize, stdin
-from collections import deque
 from heapq import heappop, heappush
+from collections import deque
 input = stdin.readline
 
 def dijkstra(N, graph, start):
     dist = [maxsize] * (N+1)
     dist[start] = 0
-    prev = [[] for _ in range(N+1)]
+    path = [[] for _ in range(N+1)]
 
     q = [(0, start)]
     while q:
         acc_dist, stopover = heappop(q)
-        if acc_dist < dist[stopover]:
-            continue
         for next_node, plus_dist in graph[stopover]:
             new_dist = acc_dist + plus_dist
             if new_dist == dist[next_node]:
-                prev[next_node].append(stopover)
+                path[next_node].append(stopover)
             elif new_dist < dist[next_node]:
                 dist[next_node] = new_dist
-                prev[next_node] = [stopover]
+                path[next_node] = [stopover]
                 heappush(q, (new_dist, next_node))
 
-    return prev
+    return path
 
-def almost_dijkstra(N, graph, start, target, edges):
+def bfs(target, path):
+    result = set()
+    q = deque([(target, path[target])])
+    while q:
+        now, prev_list = q.popleft()
+        for prev_node in prev_list:
+            if (prev_node, now) in result:
+                continue
+            result.add((prev_node, now))
+            q.append((prev_node, path[prev_node]))
+    
+    return result
+
+def almost_dijkstra(N, graph, start, edges):
     dist = [maxsize] * (N+1)
     dist[start] = 0
 
@@ -39,19 +50,7 @@ def almost_dijkstra(N, graph, start, target, edges):
                 dist[next_node] = new_dist
                 heappush(q, (new_dist, next_node))
     
-    return dist[target] if dist[target] < maxsize else -1
-
-def bfs(target, prev):
-    result = set()
-    q = deque([(target, prev[target])])
-    while q:
-        now, prev_list = q.popleft()
-        for prev_node in prev_list:
-            result.add((prev_node, now))
-            q.append((prev_node, prev[prev_node]))
-    
-    return result
-
+    return dist
 
 while True:
     N, M = map(int, input().split())
@@ -66,52 +65,11 @@ while True:
 
     path = dijkstra(N, graph, S)
     edges = bfs(D, path)
-    ans = almost_dijkstra(N, graph, S, D, edges)
+    dist = almost_dijkstra(N, graph, S, edges)
 
-    print(ans)
-
+    print(dist[D] if dist[D] < maxsize else -1)
 
 '''
-7 9
-0 6
-0 1 1
-0 2 1
-0 3 2
-0 4 3
-1 5 2
-2 6 4
-3 6 2
-4 6 4
-5 6 1
-
-4 6
-0 2
-0 1 1
-1 2 1
-1 3 1
-3 2 1
-2 0 3
-3 0 2
-
-6 8
-0 1
-0 1 1
-0 2 2
-0 3 3
-2 5 3
-3 4 2
-4 1 1
-5 1 1
-3 0 1
-
-4 5
-0 2
-0 1 1
-0 3 5
-1 2 2
-1 3 1
-3 2 1
-
 6 8
 0 5
 0 1 1
@@ -122,14 +80,4 @@ while True:
 0 2 2
 2 5 10
 0 5 5
-
-4 5
-0 2
-0 1 1
-0 3 5
-1 2 2
-1 3 1
-3 2 1
-
-0 0
 '''
