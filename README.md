@@ -2,9 +2,9 @@
 
 ### 언어
 
--   파이썬
--   자바스크립트
--   SQL
+-   Python
+-   Javascript
+-   MySQL
 
 ### 알고리즘
 
