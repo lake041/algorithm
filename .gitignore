@@ -338,7 +338,12 @@ pyrightconfig.json
 .history
 .ionide
 
-# End of https://www.toptal.com/developers/gitignore/api/macos,python,visualstudiocode,pycharm
-
 # SWEA
 SW 알고리즘 특강 사전문제
+
+# test
+test.py
+
+# End of https://www.toptal.com/developers/gitignore/api/macos,python,visualstudiocode,pycharm
+
+.vscode
