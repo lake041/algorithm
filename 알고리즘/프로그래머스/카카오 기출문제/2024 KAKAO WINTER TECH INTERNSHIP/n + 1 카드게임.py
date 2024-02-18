@@ -14,7 +14,7 @@ def solution(coin, cards):
     # source에서 숫자 하나를 고르고, 그 숫자에 맞는 쌍을 target에서 찾습니다.
     # 찾는 데 성공했다면 True를 반환하고, 실패했다면 False를 반환합니다.
     def remove_pair(source: set, target: set) -> bool:
-        nonlocal coin, round
+        nonlocal coin
         for x in list(source):
             if N+1-x in target:
                 source.remove(x)
@@ -37,4 +37,3 @@ def solution(coin, cards):
             break
 
     return round
-
