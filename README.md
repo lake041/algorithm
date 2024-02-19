@@ -9,7 +9,7 @@
 ### 알고리즘
 
 -   [프로그래머스](https://school.programmers.co.kr/learn/challenges?order=recent&page=1&languages=python3%2Cjavascript&levels=2%2C3)
--   [백준 CLASS](https://solved.ac/class)
+-   [솔브닥 CLASS](https://solved.ac/class)
 -   [리트코드 75](https://leetcode.com/studyplan/leetcode-75/)
 
 ### SQL
