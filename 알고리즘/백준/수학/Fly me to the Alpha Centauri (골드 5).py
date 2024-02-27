@@ -26,7 +26,7 @@ for _ in range(T):
 
         if result == -1:
             right = mid - 1
-        elif result == 0: 
+        elif result == 0:
             break
         elif result == 1:
             left = mid + 1
