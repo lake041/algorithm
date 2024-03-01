@@ -31,4 +31,4 @@ for _ in range(T):
         elif result == 1:
             left = mid + 1
     
-    print(mid)
+    print(mid) 
