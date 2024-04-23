@@ -15,3 +15,10 @@ h = format(value, 'x') # 3c
 print(b)
 print(o)
 print(h)
+
+print(int('101',2))
+print(int('202',3))
+print(int('303',4))
+print(int('404',5))
+print(int('505',6))
+print(int('ACF',16))

@@ -15,6 +15,20 @@ def dijkstra(start, graph, N):
             new_dist = acc_dist + plus_dist
             if new_dist < dist[next_node]:
                 dist[next_node] = new_dist
-                heappush(q, (dist[next_node], next_node))
+                heappush(q, (new_dist, next_node))
 
     return dist
+
+def dijkstra(graph, start, N):
+    dist = [maxsize] * N
+    dist[N] = 0
+
+    q = []
+    heappush(q, (dist[start], start))
+    while q:
+        acc_dist, stopover = heappop(q)
+        for next_node, plus_dist in graph[stopover]:
+            new_dist = acc_dist + plus_dist
+            if new_dist < dist[next_node]:
+                dist[next_node] = new_dist
+                heappush(q, (new_dist, next_node))
