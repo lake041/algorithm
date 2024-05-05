@@ -1,0 +1,41 @@
+Bitmap Heap Scan은 일반적으로 다음과 같은 상황에서 사용됩니다:
+
+여러 개의 인덱스 또는 조인된 테이블에서 데이터를 검색해야 할 때
+많은 수의 행이 조건을 만족하는 경우
+데이터 정렬 또는 인덱스를 사용하지 않아도 되는 경우
+이 기술은 대용량 데이터셋에서 검색 속도를 향상시키는 데 효과적입니다. 그러나 데이터의 분포나 쿼리 패턴에 따라 적절한 쿼리 실행 계획을 선택하는 것이 중요합니다.
+
+Why Hash 파티셔닝?
+
+특정 칼럼의 값이 균일하지 않은 경우: 특정 칼럼의 값이 균일하지 않고 특정 값에 치우쳐 저장되는 경우, 해시 파티셔닝을 사용하여 데이터를 균등하게 분산시킬 수 있습니다. 이를 통해 파티션 간의 데이터 불균형을 방지하고 쿼리 성능을 개선할 수 있습니다.
+
+파티션 간 부하 분산: 해시 파티셔닝을 사용하면 데이터가 균등하게 분산되므로 각 파티션 간의 부하도 균등하게 분산됩니다. 따라서 캐시에 저장된 데이터가 있는 파티션도 부하가 균등하게 분산되어 있어서 전체 시스템의 부하도 균형있게 분산됩니다.
+
+ Gather  (cost=1000.00..1007238.87 rows=28 width=40) (actual time=885.251..4220.502 rows=19 loops=1)
+   Workers Planned: 2
+   Workers Launched: 2
+   ->  Parallel Append  (cost=0.00..1006236.07 rows=14 width=40) (actual time=535.065..4211.296 rows=6 loops=3)
+         ->  Parallel Seq Scan on transactions_2024_01_20 transactions_1  (cost=0.00..143748.00 rows=2 width=40) (actual time=91.785..1117.480 rows=4 loops=1)
+               Filter: (('2024-01-20 00:00:00'::timestamp without time zone <= transaction_time) AND (transaction_time < '2024-01-27 00:00:00'::timestamp without time zone) AND (account_id = 20000))
+               Rows Removed by Filter: 8639996
+         ->  Parallel Seq Scan on transactions_2024_01_21 transactions_2  (cost=0.00..143748.00 rows=2 width=40) (actual time=629.085..1133.511 rows=3 loops=1)
+               Filter: (('2024-01-20 00:00:00'::timestamp without time zone <= transaction_time) AND (transaction_time < '2024-01-27 00:00:00'::timestamp without time zone) AND (account_id = 20000))
+               Rows Removed by Filter: 8639997
+         ->  Parallel Seq Scan on transactions_2024_01_22 transactions_3  (cost=0.00..143748.00 rows=2 width=40) (actual time=756.734..1073.523 rows=2 loops=1)
+               Filter: (('2024-01-20 00:00:00'::timestamp without time zone <= transaction_time) AND (transaction_time < '2024-01-27 00:00:00'::timestamp without time zone) AND (account_id = 20000))
+               Rows Removed by Filter: 8639998
+         ->  Parallel Seq Scan on transactions_2024_01_23 transactions_4  (cost=0.00..143748.00 rows=2 width=40) (actual time=144.295..1143.082 rows=4 loops=1)
+               Filter: (('2024-01-20 00:00:00'::timestamp without time zone <= transaction_time) AND (transaction_time < '2024-01-27 00:00:00'::timestamp without time zone) AND (account_id = 20000))
+               Rows Removed by Filter: 8639996
+         ->  Parallel Seq Scan on transactions_2024_01_24 transactions_5  (cost=0.00..143748.00 rows=2 width=40) (actual time=1502.491..1976.634 rows=1 loops=3)
+               Filter: (('2024-01-20 00:00:00'::timestamp without time zone <= transaction_time) AND (transaction_time < '2024-01-27 00:00:00'::timestamp without time zone) AND (account_id = 20000))
+               Rows Removed by Filter: 2879999
+         ->  Parallel Seq Scan on transactions_2024_01_25 transactions_6  (cost=0.00..143748.00 rows=2 width=40) (actual time=90.954..1113.922 rows=2 loops=1)
+               Filter: (('2024-01-20 00:00:00'::timestamp without time zone <= transaction_time) AND (transaction_time < '2024-01-27 00:00:00'::timestamp without time zone) AND (account_id = 20000))
+               Rows Removed by Filter: 8639998
+         ->  Parallel Seq Scan on transactions_2024_01_26 transactions_7  (cost=0.00..143748.00 rows=2 width=40) (actual time=884.317..1122.426 rows=1 loops=1)
+               Filter: (('2024-01-20 00:00:00'::timestamp without time zone <= transaction_time) AND (transaction_time < '2024-01-27 00:00:00'::timestamp without time zone) AND (account_id = 20000))
+               Rows Removed by Filter: 8639999
+ Planning Time: 4.090 ms
+ Execution Time: 4221.571 ms
+(27 rows)
